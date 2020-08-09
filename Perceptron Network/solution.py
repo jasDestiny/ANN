@@ -1,19 +1,20 @@
-def activationFunction(value,theta=1):
-    if value>=(1*theta):
+def activationFunction(value):
+    if value>=1:
         return 1
-    elif value<=(-1*theta):
+    elif value<=-1:
         return -1
     else:
         return 0
     
-def perceptron(inputs, learning_rate, target,theta=1):
+def perceptron(inputs, learning_rate, target):
     weights=[0 for i in inputs[0]]
     outputs=[]
-    delW=[]
+    delW=[[0,0,0]]
     y=[float("inf") for x in target]
     epoch=0
     while target!=y:
         epoch+=1
+        print("")
         print("Epoch #",epoch)
         for i in range(len(inputs)):
             yin=0
@@ -28,21 +29,20 @@ def perceptron(inputs, learning_rate, target,theta=1):
             for j in range(len(inputs[0])):
                 thisDelW.append(learning_rate*inputs[i][j]*target[i])
             delW.append(thisDelW)
-
-
+            
+            prevVal=weights.copy()
             if y[i]!=target[i]:
                 for i in range(len(weights)):
                     weights[i]+=thisDelW[i]
-    print("Final weights")
+            
+            prevVal=[weights[i]-prevVal[i] for i in range(len(weights))]
+            print("weight",weights)
+            print("delW",prevVal)
+    print("Final result weights")
     return weights
                 
 
-perceptron([[1,1,1,1,1],[-1,1,-1,-1,1],[1,1,1,-1,1],[1,-1,-1,1,1]],1,[1,1,-1,-1])
-
-#inputs+bias
-#learning rate
-#target
-#add theta if wanted
+perceptron([[1,1,1],[1,-1,1],[-1,1,1],[-1,-1,1]],1,[1,-1,-1,-1])
 
         
         
