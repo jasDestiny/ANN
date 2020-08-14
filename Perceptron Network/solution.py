@@ -1,12 +1,12 @@
-def activationFunction(value):
-    if value>=1:
+def activationFunction(value,theta):
+    if value>=theta:
         return 1
-    elif value<=-1:
+    elif value<=(-1*theta):
         return -1
     else:
         return 0
     
-def perceptron(inputs, learning_rate, target):
+def perceptron(inputs, learning_rate, target,theta):
     weights=[0 for i in inputs[0]]
     outputs=[]
     delW=[[0,0,0]]
@@ -21,7 +21,7 @@ def perceptron(inputs, learning_rate, target):
 
             for j in range(len(inputs[i])):
                 yin+=inputs[i][j]*weights[j]
-            y[i]=activationFunction(yin)
+            y[i]=activationFunction(yin,theta)
             outputs.append(y[i])
             thisDelW=[]
 
@@ -42,7 +42,7 @@ def perceptron(inputs, learning_rate, target):
     return weights
                 
 
-perceptron([[1,1,1],[1,-1,1],[-1,1,1],[-1,-1,1]],1,[1,-1,-1,-1])
+perceptron([[1,1,-1,-1],[1,-1,1,-1],[-1,-1,-1,1],[-1,-1,1,1]],1,[1,1,-1,-1],0.2)
 
         
         
